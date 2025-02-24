@@ -100,7 +100,7 @@ export default function Dashboard() {
                 {bookmarks?.data?.map((bookmark: any) => (
                     <div key={bookmark.id} className="bg-white shadow-lg rounded-lg p-5 border border-gray-200">
                         <p className="text-sm font-medium text-gray-600 bg-gray-200 px-2 py-1 rounded-md inline-block">
-                            📂 {bookmark.bookmark_folder.name}
+                            📂 {bookmark.folder}
                         </p>
                         <h2 className="text-xl font-semibold text-gray-800 truncate">{bookmark.title}</h2>
                         <p className="text-gray-500 text-sm mt-1 truncate">{bookmark.description}</p>
@@ -108,10 +108,10 @@ export default function Dashboard() {
                             {bookmark.url}
                         </a>
                         <div className="flex flex-wrap gap-2 mt-2">
-                            {bookmark.tags.length > 0 ? (
-                                bookmark.tags.map((tag: any) => (
-                                    <span key={tag.id} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-md">
-                                        #{tag.name}
+                            {bookmark.tags?.trim() ? ( // Check if it's not an empty string
+                                bookmark.tags.split(",").map((tag: string) => (
+                                    <span key={tag.trim()} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-md">
+                                        #{tag.trim()}
                                     </span>
                                 ))
                             ) : (
@@ -141,6 +141,8 @@ export default function Dashboard() {
                 onClose={() => { setModalOpen(false); setEditingBookmark(null); }}
                 onSave={handleAddOrUpdate}
                 initialData={editingBookmark}
+                folders={folders}
+                tags={tags}
             />
         </div>
     );

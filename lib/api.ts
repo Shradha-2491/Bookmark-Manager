@@ -10,7 +10,7 @@ const headers = {
 
 export const getBookmarks = async (userId:string) => {
   try {
-    const res = await axios.get(`${API_URL}/bookmarks?filters[user][$eq]=${userId}&populate=tags&populate=bookmark_folder`, { headers });
+    const res = await axios.get(`${API_URL}/bookmarks?filters[user][$eq]=${userId}`, { headers });
     console.log(res.data)
     return res.data;
   } catch (error) {
